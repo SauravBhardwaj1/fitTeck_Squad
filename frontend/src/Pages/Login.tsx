@@ -32,6 +32,7 @@ export default function Login() {
       .post("http://localhost:8080/user/login", formData)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
+        localStorage.setItem("name", res.data.name);
         alert(res.data.msg);
       })
       .catch((err) => {
