@@ -1,4 +1,52 @@
+import axios from "axios";
+import { useState } from "react";
+
+interface userdetails {
+  username: string;
+  email: string;
+  password: string;
+  age: number;
+  city: string;
+}
+
+let initialState = {
+  username: "",
+  email: "",
+  password: "",
+  age: 0,
+  city: "",
+};
+
 export default function Register() {
+  const [formData, setFormData] = useState<userdetails>(initialState);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type } = e.target;
+
+    const newval = type == "number" ? Number(value) : value;
+
+    setFormData({ ...formData, [name]: newval });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { email, password, username, age, city } = formData;
+    if (!username || !email || !password || !age || !city) {
+      alert("All fields are required");
+    }
+    console.log(formData);
+    axios
+      .post("url", formData)
+      .then((res) => {
+        console.log(res.data.msg);
+      })
+      .catch((err) => {
+        console.log("User Already registered");
+      });
+
+    setFormData(initialState);
+  };
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -9,7 +57,7 @@ export default function Register() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" action="#" onSubmit={handleSubmit} >
             <div className="text-left">
               <label
                 htmlFor="name"
@@ -22,6 +70,8 @@ export default function Register() {
                   id="name"
                   name="name"
                   type="text"
+                  value={formData.username}
+                  onChange={handleChange}
                   autoComplete="name"
                   placeholder="Enter Name"
                   required
@@ -41,6 +91,8 @@ export default function Register() {
                   id="email"
                   name="email"
                   type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   autoComplete="email"
                   placeholder="Enter Email"
                   required
@@ -61,6 +113,8 @@ export default function Register() {
                   id="age"
                   name="age"
                   type="number"
+                  value={formData.age}
+                  onChange={handleChange}
                   autoComplete="age"
                   placeholder="Enter Age"
                   required
@@ -81,6 +135,8 @@ export default function Register() {
                   id="city"
                   name="city"
                   type="text"
+                  value={formData.city}
+                  onChange={handleChange}
                   autoComplete="city"
                   placeholder="Enter City"
                   required
@@ -111,6 +167,8 @@ export default function Register() {
                   id="password"
                   name="password"
                   type="password"
+                  value={formData.password}
+                  onChange={handleChange}
                   autoComplete="current-password"
                   placeholder="Enter Password"
                   required
