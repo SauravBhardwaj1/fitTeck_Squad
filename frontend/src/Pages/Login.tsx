@@ -1,8 +1,43 @@
+import axios from "axios";
+import { useState } from "react";
 
+interface userdetails {
+  email: string;
+  password: string;
+}
 
-
+let initialState = {
+  email: "",
+  password: "",
+};
 
 export default function Login() {
+  const [formData, setFormData] = useState<userdetails>(initialState);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { email, password } = formData;
+    if (!email || !password) {
+      alert("All fields are required");
+    }
+    console.log(formData);
+    axios
+      .post("http://localhost:8080/user/login", formData)
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        alert(res.data.msg);
+      })
+      .catch((err) => {
+        alert("Wrong Credentials");
+      });
+
+    setFormData(initialState);
+  };
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -13,7 +48,7 @@ export default function Login() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" action="#" onSubmit={handleSubmit}>
             <div className="text-left">
               <label
                 htmlFor="email"
@@ -26,6 +61,8 @@ export default function Login() {
                   id="email"
                   name="email"
                   type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   autoComplete="email"
                   placeholder="Enter Email"
                   required
@@ -56,6 +93,8 @@ export default function Login() {
                   id="password"
                   name="password"
                   type="password"
+                  value={formData.password}
+                  onChange={handleChange}
                   autoComplete="current-password"
                   placeholder="Enter Password"
                   required
@@ -77,7 +116,7 @@ export default function Login() {
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
             <a
-              href="#"
+              href="/register"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Create an Account

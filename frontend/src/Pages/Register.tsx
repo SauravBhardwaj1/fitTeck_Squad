@@ -5,7 +5,7 @@ interface userdetails {
   username: string;
   email: string;
   password: string;
-  age: number;
+  age: string;
   city: string;
 }
 
@@ -13,7 +13,7 @@ let initialState = {
   username: "",
   email: "",
   password: "",
-  age: 0,
+  age: "",
   city: "",
 };
 
@@ -36,7 +36,7 @@ export default function Register() {
     }
     console.log(formData);
     axios
-      .post("url", formData)
+      .post("http://localhost:8080/user/register", formData)
       .then((res) => {
         console.log(res.data.msg);
       })
@@ -63,17 +63,17 @@ export default function Register() {
                 htmlFor="name"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Name
+                Username
               </label>
               <div className="mt-2">
                 <input
                   id="name"
-                  name="name"
+                  name="username"
                   type="text"
                   value={formData.username}
                   onChange={handleChange}
                   autoComplete="name"
-                  placeholder="Enter Name"
+                  placeholder="Enter Username"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -190,7 +190,7 @@ export default function Register() {
           <p className="mt-10 text-center text-sm text-gray-500">
             Already have an account?{" "}
             <a
-              href="#"
+              href="/login"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Login
