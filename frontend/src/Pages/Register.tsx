@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 interface userdetails {
   username: string;
@@ -23,7 +25,7 @@ export default function Register() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
 
-    const newval = type == "number" ? Number(value) : value;
+    const newval = type === "number" ? Number(value) : value;
 
     setFormData({ ...formData, [name]: newval });
   };
@@ -38,10 +40,10 @@ export default function Register() {
     axios
       .post("http://localhost:8080/user/register", formData)
       .then((res) => {
-        console.log(res.data.msg);
+        alert(res.data.msg);
       })
       .catch((err) => {
-        console.log("User Already registered");
+        alert("User Already registered");
       });
 
     setFormData(initialState);
@@ -49,7 +51,8 @@ export default function Register() {
 
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <Navbar/>
+      <div className="flex flex-1 flex-col justify-center px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Create new account
@@ -198,6 +201,7 @@ export default function Register() {
           </p>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }
