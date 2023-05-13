@@ -10,10 +10,10 @@ const Homepage = () => {
           <div className="relative">
             <div className="absolute">
               <div className="">
-                <h1 className="my-2 text-gray-800 font-bold text-4xl">
+                <h1 className="mt-32 text-gray-800 font-bold text-4xl">
                 Good health starts with what you eat.
                 </h1>
-                <p className="my-2 text-gray-800 text-xl">
+                <p className="mt-16 text-gray-800 text-xl">
                 Want to eat more mindfully? Track meals, learn about your habits, and reach your goals with us.
                 </p>
                 <button className="sm:w-full lg:w-auto my-2 border rounded md py-4 px-8 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50">
@@ -24,8 +24,8 @@ const Homepage = () => {
                 </button>
               </div>
             </div>
-            <div>
-              {/* <img src="https://i.ibb.co/G9DC8S0/404-2.png" /> */}
+            <div className="pl-16"> 
+              <img src="https://img.icons8.com/?size=512&id=849FtKgMBZe1&format=png" className="opacity-10 " />
             </div>
           </div>
         </div>
