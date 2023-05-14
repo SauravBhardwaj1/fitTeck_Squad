@@ -127,7 +127,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <hr className="border-blueGray-300" />
+        {/* <hr className="border-blueGray-300" /> */}
       </div>
     </footer>
   );
