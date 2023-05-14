@@ -38,7 +38,7 @@ export default function Register() {
     }
     console.log(formData);
     axios
-      .post("http://localhost:8080/user/register", formData)
+      .post(`${process.env.url}/user/register`, formData)
       .then((res) => {
         alert(res.data.msg);
       })
