@@ -44,10 +44,11 @@ const Navbar = () => {
                 Products
               </a>
               <a
+              href="/bmi"
                 className="flex text-gray-600 hover:text-blue-500
                     cursor-pointer transition-colors duration-300"
               >
-                Support
+                BMI
               </a>
 
               <a
