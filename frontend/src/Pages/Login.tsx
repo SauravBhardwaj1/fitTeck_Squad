@@ -29,7 +29,7 @@ export default function Login() {
     }
     console.log(formData);
     axios
-      .post(`${process.env.url}/user/login`, formData)
+      .post(`https://fittect-backend.onrender.com/user/login`, formData)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("name", res.data.name);

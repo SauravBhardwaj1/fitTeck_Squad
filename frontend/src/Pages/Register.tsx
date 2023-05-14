@@ -38,7 +38,7 @@ export default function Register() {
     }
     console.log(formData);
     axios
-      .post(`${process.env.url}/user/register`, formData)
+      .post(`https://fittect-backend.onrender.com/user/register`, formData)
       .then((res) => {
         alert(res.data.msg);
       })
