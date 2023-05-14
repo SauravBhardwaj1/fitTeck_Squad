@@ -36,14 +36,16 @@ userRouter.post("/register", async (req, res) => {
 userRouter.post("/login", async (req, res) => {
     const { email, password } = req.body
     try {
-        const user = await userModel.findOne({ email })
-        if (user) {
-            bcrypt.compare(password, user.password, (err, result) => {
-                if (result) {
-                    const token = jwt.sign({ userId: user._id }, 'masai')
-                    res.status(200).send({ "msg": "Login successful", token: token, name: user.username })
-                } else {
-                    res.status(400).send({ "err": "Wrong credentials" })
+
+        const user = await userModel.findOne({email})   
+        if(user){
+            bcrypt.compare(password, user.password, (err,result)=>{
+                if(result){
+                    const token = jwt.sign({userId: user._id},'masai')
+                    res.status(200).send({"msg": "Login successful", token : token, name: user.username})
+                }else{
+                    res.status(400).send({"err": "Wrong credentials"})
+
                 }
             })
         } else {
